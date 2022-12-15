@@ -1,0 +1,63 @@
+// Recursion
+// Given an array of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum. 
+
+
+
+#include<bits/stdc++.h> 
+using namespace std; 
+
+ 
+class Solution{   
+public:
+    bool helper (vector <int> a, int sum,int tempSum, int i){
+    	//Base Cases
+        if (sum==tempSum){
+            return true;
+        }
+        if (sum<tempSum){
+            return false;
+        }
+        if (i>=a.size()){
+            return false;
+        }
+        
+        //Recursive Calls
+        int recCall1 = helper(a,sum,tempSum+a[i],i+1);
+        int recCall2 = helper(a,sum,tempSum,i+1);
+        
+        //Small Calculation
+        return recCall1 || recCall2;
+        
+    }
+    bool isSubsetSum(vector<int>arr, int sum){
+        return helper(arr,sum,0,0);
+        
+    }
+};
+
+
+int main() 
+{ 
+
+    
+        int N, sum;
+        cout<<"enter the no ofelements in the array:"<<endl;
+        cin >> N;
+        vector<int> arr(N);
+        cout<<"enter the elements in the array"<<endl;
+        for(int i = 0; i < N; i++){
+            cin >> arr[i];
+        }
+        cout<<"enter the target sum:"<<endl;
+        cin >> sum;
+        
+        Solution ob;
+        if(ob.isSubsetSum(arr, sum) == true){
+            cout<<"subset found"<<endl;
+        } 
+        else{
+            cout<<"subset not found"<<endl;
+        }
+    
+    return 0; 
+} 
